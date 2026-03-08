@@ -4,7 +4,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PROVIDER = os.getenv("LLM_PROVIDER", "groq")
+PROVIDER = os.getenv("LLM_PROVIDER", "gemini")
+
+load_dotenv()
+print("PROVIDER:", os.getenv("LLM_PROVIDER"))
+print("KEY:", os.getenv("GEMINI_API_KEY", "NOT FOUND"))
 
 # ── Client factory ─────────────────────────────────────────────────────────
 def get_client() -> tuple[OpenAI, str]:
@@ -26,7 +30,7 @@ def get_client() -> tuple[OpenAI, str]:
         return OpenAI(
             api_key=os.getenv("GEMINI_API_KEY"),
             base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-        ), "gemini-1.5-flash"
+        ),  "gemini-2.5-flash"
 
     raise ValueError(f"Unknown provider: {PROVIDER}")
 
