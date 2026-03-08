@@ -1,34 +1,42 @@
 import os
+import streamlit as st
 from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-PROVIDER = os.getenv("LLM_PROVIDER", "gemini")
+def get_env(key: str, default: str = None) -> str:
+    """Check Streamlit secrets first, then fall back to .env / OS env."""
+    try:
+        return st.secrets[key]
+    except (KeyError, FileNotFoundError):
+        return get_env(key, default)
 
-print("PROVIDER:", os.getenv("LLM_PROVIDER"))
-print("KEY:", os.getenv("GEMINI_API_KEY", "NOT FOUND"))
+PROVIDER = get_env("LLM_PROVIDER", "gemini")
+
+print("PROVIDER:", get_env("LLM_PROVIDER"))
+print("KEY:", get_env("GEMINI_API_KEY", "NOT FOUND"))
 
 # ── Client factory ─────────────────────────────────────────────────────────
 def get_client() -> tuple[OpenAI, str]:
     """Returns (client, model_name) based on LLM_PROVIDER env var."""
     if PROVIDER == "groq":
         return OpenAI(
-            api_key=os.getenv("GROQ_API_KEY"),
+            api_key=get_env("GROQ_API_KEY"),
             base_url="https://api.groq.com/openai/v1"
-        ), os.getenv("GROQ_MODEL", "llama3-70b-8192")
+        ), get_env("GROQ_MODEL", "llama3-70b-8192")
 
     elif PROVIDER == "openrouter":
         return OpenAI(
-            api_key=os.getenv("OPENROUTER_API_KEY"),
+            api_key=get_env("OPENROUTER_API_KEY"),
             base_url="https://openrouter.ai/api/v1"
-        ), os.getenv("OPENROUTER_MODEL", "mistralai/mistral-7b-instruct")
+        ), get_env("OPENROUTER_MODEL", "mistralai/mistral-7b-instruct")
 
     elif PROVIDER == "gemini":
         return OpenAI(
-            api_key=os.getenv("GEMINI_API_KEY"),
+            api_key=get_env("GEMINI_API_KEY"),
             base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-        ), os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        ), get_env("GEMINI_MODEL", "gemini-2.5-flash")
 
     raise ValueError(f"Unknown provider: {PROVIDER}")
 
