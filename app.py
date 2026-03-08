@@ -1,4 +1,6 @@
 import streamlit as st
+from streamlit_extras.copy_to_clipboard import copy_to_clipboard_button
+
 from llm import enhance_prompt
 from examples import load_examples
 import json
@@ -91,7 +93,6 @@ with col2:
     regen_btn = st.button("🔁 Regenerate", use_container_width=True,
                           disabled=not st.session_state.output)
     
-from streamlit_extras.copy_to_clipboard import copy_to_clipboard_button
 
 # ── Trigger enhancement ──────────────────────────────────────────────────────
 def run_enhancement(seed: int = 0):
