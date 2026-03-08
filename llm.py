@@ -25,11 +25,10 @@ def get_client() -> tuple[OpenAI, str]:
         ), os.getenv("OPENROUTER_MODEL", "mistralai/mistral-7b-instruct")
 
     elif PROVIDER == "gemini":
-        # Gemini via OpenAI-compat endpoint (Gemini 1.5 Flash is free-tier)
         return OpenAI(
             api_key=os.getenv("GEMINI_API_KEY"),
             base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-        ),  "gemini-2.5-flash"
+        ), os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
     raise ValueError(f"Unknown provider: {PROVIDER}")
 
