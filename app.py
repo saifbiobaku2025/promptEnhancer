@@ -1,5 +1,6 @@
 import streamlit as st
-from streamlit_extras.copy_to_clipboard import copy_to_clipboard_button
+# from streamlit_extras.copy_to_clipboard import copy_to_clipboard_button
+
 
 from llm import enhance_prompt
 from examples import load_examples
@@ -144,11 +145,23 @@ if st.session_state.output:
     )
 
     # Copy button (streamlit-extras)
-    copy_to_clipboard_button(
-        "📋 Copy to clipboard",
-        st.session_state.output,
-        after_copy_label="✅ Copied!"
-    )
+    # copy_to_clipboard_button(
+    #     "📋 Copy to clipboard",
+    #     st.session_state.output,
+    #     after_copy_label="✅ Copied!"
+    # )
+
+    import streamlit as st
+
+    # Your existing output (assuming it's a string)
+    if "output" not in st.session_state:
+        st.session_state.output = "No output yet. Click the enhance button to generate an enhanced prompt!"
+
+    # ... your code that fills st.session_state.output ...
+
+    # Display with built-in copy button
+    st.code(st.session_state.output, language=None)   # language=None → no syntax highlighting
+
 
     # Version history expander
     if len(st.session_state.history) > 1:
