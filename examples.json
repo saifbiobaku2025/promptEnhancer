@@ -1,0 +1,27 @@
+[
+  {
+    "label": "🐍 Python script (vague)",
+    "input": "write me a python script that reads csv files",
+    "expected_intent": "Code generation"
+  },
+  {
+    "label": "✍️ Blog post (vague)",
+    "input": "write a blog post about AI",
+    "expected_intent": "Writing/copywriting"
+  },
+  {
+    "label": "📊 Data analysis (vague)",
+    "input": "analyze this sales data and give me insights",
+    "expected_intent": "Data analysis"
+  },
+  {
+    "label": "🎨 Creative (vague)",
+    "input": "give me ideas for a mobile app",
+    "expected_intent": "Creative brainstorm"
+  },
+  {
+    "label": "📝 Summarization (vague)",
+    "input": "summarize this document for me",
+    "expected_intent": "Summarization"
+  }
+]
