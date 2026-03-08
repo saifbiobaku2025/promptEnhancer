@@ -86,7 +86,7 @@ def enhance_prompt(
         ],
         temperature=temperature,
         max_tokens=1024,
-        seed=seed if seed > 0 else None,  # seed=None gives fresh output
+        # seed=seed if seed > 0 else None,  # seed=None gives fresh output
     )
 
     raw = response.choices[0].message.content.strip()
