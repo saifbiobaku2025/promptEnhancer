@@ -6,7 +6,6 @@ load_dotenv()
 
 PROVIDER = os.getenv("LLM_PROVIDER", "gemini")
 
-load_dotenv()
 print("PROVIDER:", os.getenv("LLM_PROVIDER"))
 print("KEY:", os.getenv("GEMINI_API_KEY", "NOT FOUND"))
 
